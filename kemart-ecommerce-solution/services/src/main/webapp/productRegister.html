@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kwik-E-Mart - Product Register</title>
+<link rel="stylesheet" href="css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+<script src="http://localhost:8080/kwikemart-online-store/js/jquery-1.8.3.min.js"></script>
+<script src="http://localhost:8080/kwikemart-online-store/js/jquery.validate.min.js"></script>
+<script>
+function createProduct (){
+	var postbody = "productName="+document.getElementById("productName").value;
+		postbody +="&manufacturer="+document.getElementById("manufacturer").value;
+		postbody +="&description="+document.getElementById("desc").value;
+		postbody +="&value="+document.getElementById("value").value;
+		postbody +="&discount="+document.getElementById("discount").value;
+		postbody +="&productImageURL="+document.getElementById("imageURL").value;
+		postbody +="&categoryName="+document.getElementById("category").value;
+		
+	var valid= false;
+	valid = $("#productForm").valid();;
+	if(valid){
+		$.ajax({
+			type: "POST",
+			url: "http://localhost:8080/kwikemart-online-store/services/product/add",
+			data: postbody,
+			crossDomain: true,
+			processData: false,
+			global:false,
+			success:function(response){			
+			   alert(response);
+			 }
+			});		
+    }
+}
+
+$().ready(function() {
+
+	// validate register form on keyup and submit
+	$("#productForm").validate({
+		rules: {
+			productName: "required",
+			desc: "required",
+			value: "required",
+			desc: "required",
+			discount: "required",
+			manufacturer: "required",
+			imageURL: "required",
+			
+			productName: {
+				required: true,
+				minlength: 2
+			},
+			desc: {
+				required: true,
+				minlength: 10
+			},
+			value: {
+				required: true,
+				number:true
+			},
+			discount: {
+				required: true,
+				number:true
+			},
+			manufacturer: {
+				required: true,
+				minlength: 2
+			},
+			imageURL:{
+			   required: true
+			}
+		},
+		messages: {
+			productName: "Please enter the product name",
+			desc: "Please enter a description",
+			
+			imageURL: {
+				required: "Please provide a valid URL"
+			}
+		}
+	});
+
+	
+});
+
+</script>
+<link rel="stylesheet" href="css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+<!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<header>
+	<div class="wrapper">
+        <h1><a href="index.html" id="brand" title="Kwik-e-Mart">Kwik-e-Mart</a></h1>
+        
+    </div>
+</header>
+<aside id="top">
+	<div class="wrapper">
+        <ul id="social">
+            <li><a href="#" class="facebook" title="like us us on Facebook">like us us on Facebook</a></li>
+            <li><a href="#" class="twitter" title="follow us on twitter">follow us on twitter</a></li>
+        </ul>
+        <form>
+        	<input type="text" placeholder="Search Kmik-E-Mart comp..." /><button type="submit">Search</button>
+        </form>
+    </div>
+</aside>
+<article id="Register New Product">
+	<form id="productForm" >
+    	<h1>Register New Product</h1>
+		<p/>
+		<p><label for="productnamel">Product Name </label></p>
+		<p><input type="text" name="productName" id="productName" /></p>
+		<p><label for="descriptionl">Description  </label></p>
+		<p><input  type="text" name="desc" id="desc" /></p>
+        <p><label for="valuel">Value </label></p>
+		<p><input type="text"  name="value" id="value" /></p>
+		<p><label for="discountl">Discount </label></p>
+		<p><input type="text"  name="discount" id="discount" /></p>
+		<p><label for="imageurll">Image URL    </label></p>
+		<p><input type="text"  name="imageURL" id="imageURL" /></p>
+		<p><label for="manufacturerl">Manufacturer </label></p>
+		<p><input type="text"  name="manufacturer" id="manufacturer"/> </p>		
+		<p><label for="categoryl">Category     </label></p>
+		<p><input type="text"  name="category" id="category" /></p>
+		
+		
+	</form>   
+	<section>
+        <p><button  onclick="createProduct()" >Save Product</button> <a href="productRegister.html">Reset Fields</a></p>
+
+    	<p><label for="result" /> </p>
+    </section>	
+</article>
+<footer>
+	<div class="wrapper">
+    	<span class="logo">Kwik-E-Mart</span>
+        Kwik-E-Mart<a href="#">Sitemap</a> <a href="#">Terms &amp; Conditions</a> <a href="#">Shipping &amp; Returns</a> <a href="#">Size Guide</a><a href="#">Help</a> <br />
+        Address to said Kwik-E-Mart, including postcode &nbsp;-&nbsp; 1.888.CO.name <a href="mailto:Kwik-E-Mart">service@Kwik-E-Mart.com</a>
+    </div>
+</footer>
+</body>
+</html>

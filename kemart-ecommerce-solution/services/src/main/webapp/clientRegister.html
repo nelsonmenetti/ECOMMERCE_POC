@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kwik-E-Mart - Client Register</title>
+<link rel="stylesheet" href="css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+<script src="http://localhost:8080/kwikemart-online-store/js/jquery-1.8.3.min.js"></script>
+<script src="http://localhost:8080/kwikemart-online-store/js/jquery.validate.min.js"></script>
+<script>
+function createClient (){
+	var postbody = "userName="+document.getElementById("userName").value;
+	postbody +="&cellphone="+document.getElementById("cellphone").value;
+	postbody +="&clientName="+document.getElementById("clientName").value;
+	postbody +="&fixedlinePhone="+document.getElementById("fixedlinePhone").value;
+	postbody +="&password="+document.getElementById("password").value;
+	postbody +="&dstreet="+document.getElementById("dstreet").value;
+	postbody +="&dcity="+document.getElementById("dcity").value;							   
+	postbody +="&dnumber="+document.getElementById("dnumber").value;							   
+	postbody +="&dcountry="+document.getElementById("dcountry").value;							   
+	postbody +="&dzipCode="+document.getElementById("dzipCode").value;							   
+	postbody +="&bstreet="+document.getElementById("bstreet").value;							   
+	postbody +="&bcity="+document.getElementById("bcity").value;							   
+	postbody +="&bnumber="+document.getElementById("bnumber").value;							   
+    postbody +="&bcountry="+document.getElementById("bcountry").value;							   
+    postbody +="&bzipCode="+document.getElementById("bzipCode").value;			
+		
+	var valid= false;
+	valid = $("#clientForm").valid();;
+	if(valid){
+		$.ajax({
+			type: "POST",
+			url: "http://localhost:8080/kwikemart-online-store/services/client/add",
+			data: postbody,
+			crossDomain: true,
+			processData: false,
+			global:false,
+			success:function(response){			
+			   alert(response);
+			 }
+			});		
+    }
+}
+
+$().ready(function() {
+
+			// validate register form on keyup and submit
+			$("#clientForm").validate({
+				rules: {
+					userName: "required",
+			cellphone: "required",
+			clientName: "required",
+			fixedlinePhone: "required",
+			password: "required",
+			dstreet: "required",
+			dcity: "required",			   
+			dnumber	: "required",						   
+			dcountry: "required",							   
+			dzipCode: "required",							   
+			bstreet: "required",							   
+			bcity: "required",							   
+			bnumber: "required",							   
+			bcountry: "required",							   
+			bzipCode: "required",	
+			userName: {
+						required: true,
+						email:true
+					},
+			password: {
+				required: true,
+				minlength: 5,
+			},			
+			passwordConfirm: {
+				required: true,
+				minlength: 5,
+				equalTo: "#password"
+			},		
+			cellphone: {
+						required: true,
+						digits:true
+					},
+			fixedlinePhone: {
+				required: true,
+				digits:true
+			}
+		},
+		messages: {
+			userName: "Please enter your email address",
+			clientName: "Please enter your name",
+			password: {
+				required: "Please provide a password",
+				minlength: "Your password must be at least 5 characters long"
+			},
+			passwordConfirm: {
+				required: "Please provide a password",
+				minlength: "Your password must be at least 5 characters long",
+				equalTo: "Please enter the same password as above"
+			}
+		}
+	});
+
+	
+});
+
+</script>
+<link rel="stylesheet" href="css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+<!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<header>
+	<div class="wrapper">
+        <h1><a href="index.html" id="brand" title="Kwik-e-Mart">Kwik-e-Mart</a></h1>
+        
+    </div>
+</header>
+<aside id="top">
+	<div class="wrapper">
+        <ul id="social">
+            <li><a href="#" class="facebook" title="like us us on Facebook">like us us on Facebook</a></li>
+            <li><a href="#" class="twitter" title="follow us on twitter">follow us on twitter</a></li>
+        </ul>
+        <form>
+        	<input type="text" placeholder="Search Kmik-E-Mart comp..." /><button type="submit">Search</button>
+        </form>
+    </div>
+</aside>
+<article id="Register New Client" width="50%">
+	<form id="clientForm" width="50%">
+    	<<h1>Client Account Creation </h1>
+		<p/>
+		<p><label for="emaill">Email</label></p>
+		<p><input type="text" name="userName" id="userName" /></p>
+		<p><label for="descriptionl">Name  </label></p>
+		<p><input  type="text" name="clientName" id="clientName" /></p>
+        <p><label for="fixedlinePhonel">Fixedline Phone</label></p>
+		<p><input type="text"  name="fixedlinePhone" id="fixedlinePhone" /></p>
+		<p><label for="cellphonel">Cellphone </label></p>
+		<p><input type="text"  name="cellphone" id="cellphone" /></p>
+		<p><label for="passwordl">Password  </label></p>
+		<p><input type="password"  name="password" id="password"  /></p>
+		<p><label for="passwordConfirml">Confirm Password </label></p>
+		<p><input type="password"  name="passwordConfirm" id="passwordConfirm"/> </p>
+		
+
+		<p><label for="dstreetl">Delivery Street</label></p>
+		<p><input type="text" name="dstreet" id="dstreet" /></p>
+		<p><label for="dnumberl">Delivery Number</label></p>
+		<p><input type="text" name="dnumber" id="dnumber" /></p>
+		<p><label for="dcityl">Delivery City</label></p>
+		<p><input type="text" name="dcity" id="dcity" /></p>
+		<p><label for="dcountryl">Delivery Country</label></p>
+		<p><input type="text" name="dcountry" id="dcountry" /></p>
+		<p><label for="dzipCodel">Delivery ZipCode</label></p>
+		<p><input type="text" name="dzipCode" id="dzipCode" /></p>
+
+		<p><label for="bstreetl">Billing Street</label></p>
+		<p><input type="text" name="bstreet" id="bstreet" /></p>
+		<p><label for="bnumberl">Billing Number</label></p>
+		<p><input type="text" name="bnumber" id="bnumber" /></p>
+		<p><label for="bcityl">Billing City</label></p>
+		<p><input type="text" name="bcity" id="bcity" /></p>
+		<p><label for="bcountryl">Billing Country</label></p>
+		<p><input type="text" name="bcountry" id="bcountry" /></p>
+		<p><label for="bzipCodel">Billing ZipCode</label></p>
+		<p><input type="text" name="bzipCode" id="bzipCode" /></p>
+		
+		
+	</form>   
+	<section>
+        <p><button  onclick="createClient()" >Create Account</button> <a href="clientRegister.html">Reset Fields</a></p>
+
+    	<p><label for="result" /> </p>
+    </section>	
+</article>
+<footer>
+	<div class="wrapper">
+    	<span class="logo">Kwik-E-Mart</span>
+        Kwik-E-Mart<a href="#">Sitemap</a> <a href="#">Terms &amp; Conditions</a> <a href="#">Shipping &amp; Returns</a> <a href="#">Size Guide</a><a href="#">Help</a> <br />
+        Address to said Kwik-E-Mart, including postcode &nbsp;-&nbsp; 1.888.CO.name <a href="mailto:Kwik-E-Mart">service@Kwik-E-Mart.com</a>
+    </div>
+</footer>
+</body>
+</html>

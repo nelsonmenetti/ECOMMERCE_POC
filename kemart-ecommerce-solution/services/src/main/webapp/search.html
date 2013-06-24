@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kwik-E-Mart - Product Search</title>
+<link rel="stylesheet" href="css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+<!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<script src="http://localhost:8080/kwikemart-online-store/js/jquery-1.8.3.min.js"></script>
+<script src="http://localhost:8080/kwikemart-online-store/js/jquery.validate.min.js"></script>
+<script>
+function loadProducts() {
+
+    var searchString ="search='"+document.getElementById("search").value+"'";
+    $.ajax({
+			type: "GET",
+			url: "http://localhost:8080/kwikemart-online-store/services/product/search",
+			data: searchString,
+			crossDomain: true,
+			success:function(xml){			
+			   var products = $(xml).find('products');
+			   $('#productList').empty();
+			   var append ="";
+			   for (var i = 0; i < products.length; i++) {
+			        append +="<li>";
+				    append +="	<a href='"+'.'+"'><img src='"+$(products[i]).attr('productImageURL')+"'/></a>";
+				    append +="  <a href='"+'.'+"' class='"+'title'+"'><label>'"+$(products[i]).attr('productName')+"'</label></a>";
+				    append +="	<strong>'"+$(products[i]).attr('value')+"'</strong>";
+                    append +="</li>";
+			   }
+			   $('#productList').html(append);
+			 }
+			});		
+			
+    
+ }
+
+
+
+</script>
+<header>
+	<div class="wrapper">
+        <h1><a href="index.html" id="brand" title="Kwik-E-Mart">Kwik-E-Mart</a></h1>
+    </div>
+</header>
+<aside id="top">
+	<div class="wrapper">
+        <ul id="social">
+            <li><a href="#" class="facebook" title="like us us on Facebook">like us us on Facebook</a></li>
+            <li><a href="#" class="twitter" title="follow us on twitter">follow us on twitter</a></li>
+        </ul>
+       	<input type="text" placeholder="Search Kwik-E-Mart..." id="search" /><button onclick="loadProducts()" >Search</button>
+        <div id="action-bar"><a href="login.html">Login/Register</a> </div>
+    </div>
+</aside>
+<article id="grid">
+    <ul id="productList">
+               
+    </ul>    
+</article>
+<footer>
+	<div class="wrapper">
+    	<span class="logo">Kwik-E-Mart</span>
+        Kwik-E-Mart<a href="#">Sitemap</a> <a href="#">Terms &amp; Conditions</a> <a href="#">Shipping &amp; Returns</a> <a href="#">Size Guide</a><a href="#">Help</a> <br />
+        Address to said Kwik-E-Mart, including postcode &nbsp;-&nbsp; 1.888.CO.name <a href="mailto:Kwik-E-Mart">service@Kwik-E-Mart.com</a>
+    </div>
+</footer>
+</body>
+</html>
